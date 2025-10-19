@@ -20,6 +20,12 @@ def example_1_recent_large_contracts():
             {
                 "lower_bound": 5000000.00  # $5 million minimum
             }
+        ],
+        "time_period": [
+            {
+                "start_date": "2024-01-01",
+                "end_date": "2024-12-31"
+            }
         ]
     }
     
@@ -87,6 +93,12 @@ def example_4_fetch_multiple_pages():
     
     filters = {
         "award_type_codes": ["10"],  # Contracts
+        "time_period": [
+            {
+                "start_date": "2024-01-01",
+                "end_date": "2024-12-31"
+            }
+        ]
     }
     
     all_results = []
@@ -122,6 +134,12 @@ def example_5_specific_recipient():
     filters = {
         "recipient_search_text": ["university"],  # Search by name
         "award_type_codes": ["02", "03", "04", "05"],  # Grants
+        "time_period": [
+            {
+                "start_date": "2024-01-01",
+                "end_date": "2024-12-31"
+            }
+        ]
     }
     
     data = fetch_spending_data(filters=filters, limit=25)
@@ -149,6 +167,12 @@ def example_6_custom_fields():
         "award_amounts": [
             {
                 "lower_bound": 10000000.00  # $10 million minimum
+            }
+        ],
+        "time_period": [
+            {
+                "start_date": "2024-01-01",
+                "end_date": "2024-12-31"
             }
         ]
     }

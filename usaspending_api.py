@@ -47,16 +47,17 @@ def fetch_spending_data(filters=None, fields=None, limit=100, page=1):
     
     # Default filters - you can customize these!
     if filters is None:
+        # Default: Get recent awards from the past year
         filters = {
-            # Example: Filter by award type codes
-            # "10" = Contract, "02" = Grant, "03" = Direct Payment, etc.
-            # "award_type_codes": ["10"],  # Uncomment to filter by contracts only
-            
-            # Example: Filter by fiscal year
-            # "time_period": [{"start_date": "2023-10-01", "end_date": "2024-09-30"}],
-            
-            # Example: Filter by award amount range
-            # "award_amounts": [{"lower_bound": 1000000.00, "upper_bound": 10000000.00}],
+            "time_period": [
+                {
+                    "start_date": "2024-01-01",
+                    "end_date": "2024-12-31"
+                }
+            ]
+            # Additional filter examples (uncomment to use):
+            # "award_type_codes": ["10"],  # 10 = Contract, 02 = Grant, etc.
+            # "award_amounts": [{"lower_bound": 1000000.00}],  # Minimum $1M
         }
     
     # Build the request payload
@@ -81,6 +82,14 @@ def fetch_spending_data(filters=None, fields=None, limit=100, page=1):
         
     except requests.exceptions.RequestException as e:
         print(f"✗ Error fetching data: {e}")
+        # Try to get more details from the response
+        try:
+            if hasattr(e.response, 'text'):
+                error_detail = e.response.json() if e.response.text else {}
+                if error_detail:
+                    print(f"   API Error Details: {error_detail}")
+        except:
+            pass
         return None
 
 
