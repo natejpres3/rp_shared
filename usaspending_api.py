@@ -47,8 +47,9 @@ def fetch_spending_data(filters=None, fields=None, limit=100, page=1):
     
     # Default filters - you can customize these!
     if filters is None:
-        # Default: Get recent awards from the past year
+        # Default: Get recent contracts (award_type_codes is REQUIRED by the API)
         filters = {
+            "award_type_codes": ["10"],  # 10 = Contracts (REQUIRED FIELD)
             "time_period": [
                 {
                     "start_date": "2024-01-01",
@@ -56,8 +57,8 @@ def fetch_spending_data(filters=None, fields=None, limit=100, page=1):
                 }
             ]
             # Additional filter examples (uncomment to use):
-            # "award_type_codes": ["10"],  # 10 = Contract, 02 = Grant, etc.
             # "award_amounts": [{"lower_bound": 1000000.00}],  # Minimum $1M
+            # Change award_type_codes to: ["02"] for Grants, ["03"] for Direct Payments, etc.
         }
     
     # Build the request payload

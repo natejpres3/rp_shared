@@ -29,10 +29,12 @@ This will generate sample data files showing different ways to filter the data.
 
 Edit `usaspending_api.py` and modify the filters in the `main()` function:
 
+**⚠️ IMPORTANT:** `award_type_codes` is REQUIRED by the API - always include it!
+
 ```python
 # Example: Get contracts over $1M from 2024
 filters = {
-    "award_type_codes": ["10"],  # Contracts
+    "award_type_codes": ["10"],  # REQUIRED - Contracts
     "award_amounts": [{"lower_bound": 1000000.00}],
     "time_period": [{
         "start_date": "2024-01-01",
@@ -77,6 +79,10 @@ data = fetch_spending_data(filters=filters, limit=100)
 
 **"No module named 'requests'"**
 - Run: `pip install requests`
+
+**"422 Error: Missing value: 'filters|award_type_codes'"**
+- You must include `award_type_codes` in your filters - it's required!
+- Example: `"award_type_codes": ["10"]` for contracts
 
 **"No results found"**
 - Your filters might be too restrictive

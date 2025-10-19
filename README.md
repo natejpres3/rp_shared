@@ -31,9 +31,11 @@ The script fetches data from the `/api/v2/search/spending_by_award/` endpoint. B
 
 ### Customizing Filters
 
-You can customize the `filters` parameter in the `fetch_spending_data()` function. Here are some examples:
+You can customize the `filters` parameter in the `fetch_spending_data()` function. 
 
-#### Filter by Award Type
+**IMPORTANT:** The `award_type_codes` field is **REQUIRED** by the API. Every filter must include it.
+
+#### Filter by Award Type (REQUIRED)
 ```python
 filters = {
     "award_type_codes": ["10"]  # 10 = Contracts, 02 = Grants, 03 = Direct Payments
@@ -43,6 +45,7 @@ filters = {
 #### Filter by Date Range
 ```python
 filters = {
+    "award_type_codes": ["10"],  # REQUIRED
     "time_period": [
         {
             "start_date": "2023-10-01",
@@ -55,6 +58,7 @@ filters = {
 #### Filter by Award Amount
 ```python
 filters = {
+    "award_type_codes": ["10"],  # REQUIRED
     "award_amounts": [
         {
             "lower_bound": 1000000.00,   # $1 million minimum
@@ -67,6 +71,7 @@ filters = {
 #### Filter by Agency
 ```python
 filters = {
+    "award_type_codes": ["10"],  # REQUIRED
     "agencies": [
         {
             "type": "awarding",
